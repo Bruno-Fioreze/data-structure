@@ -13,6 +13,7 @@ class Queue:
         self.last = None
 
     def __repr__(self):
+        r = "Empty Queue"
         if self._size:
             r = ""
             pointer = self.first
@@ -20,7 +21,7 @@ class Queue:
                 r = r + str(pointer.data) + " "
                 pointer = pointer.next
             
-        return "Empty Queue"
+        return r
 
     def __len__(self):
         return self._size
@@ -33,13 +34,13 @@ class Queue:
 
     def push(self, element):
         node = Node(element)
-        if self.last:
-            self.last= None
+        if not self.last:
+            self.last = node
         else:
             self.last.next = node
             self.last = node
         
-        if self.first:
+        if not self.first:
             self.first = node
         
         self.increment_size()
@@ -59,13 +60,10 @@ class Queue:
         raise IndexError("The Queue is empty")
 
 numbers = [1, 30, 90, 50, 99]
-stack = Queue()
+q = Queue()
 for number in numbers:
-    stack.push(number)
-
-stack.pop()
-stack.pop()
+    q.push(number)
 
 print(
-    stack.peek()
+    q
 )

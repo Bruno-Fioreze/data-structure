@@ -29,7 +29,41 @@ class LinkedList:
      
     def __len__(self):
         return self._size
+    
+    def __getitem__(self, key):
+        pointer = self.head
+        for i in range(key):
+            if pointer:
+                pointer = pointer.next
+            else:
+                raise IndexError("List index out of range")
         
+        if not pointer:
+            raise IndexError("List index out of range")    
+         
+        return pointer.data
+    
+    def __setitem__(self, key, element):
+        pointer = self.head
+        for i in range(key):
+            if pointer:
+                pointer = pointer.next
+            else:
+                raise IndexError("List index out of range")
+        
+        if not pointer:
+            raise IndexError("List index out of range")
+
+        pointer.data = element
+    
+    def index(self, element):
+        pointer = self.head
+        for i in range(self._size):
+            if pointer.data == element:
+                return i
+            pointer = pointer.next
+        raise IndexError(f"{element} is not in list")
+
 numbers = [1, 30, 90, 50, 99]
 root = LinkedList()
 for number in numbers:
@@ -40,5 +74,5 @@ print(
 )
 
 print(
-    len(root)
+    root.index(1)
 )

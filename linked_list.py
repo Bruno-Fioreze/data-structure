@@ -10,10 +10,10 @@ class LinkedList:
     def __init__(self):
         self.head = None
         self.last_node = None
-        self.size = 0
+        self._size = 0
     
     def increment_size(self):
-        self.size += 1
+        self._size += 1
     
     def append(self, number):
         node = Node(number)
@@ -26,6 +26,9 @@ class LinkedList:
         self.increment_size()
         self.last_node.next = node
         self.last_node = node
+     
+    def __len__(self):
+        return self._size
         
 numbers = [1, 30, 90, 50, 99]
 root = LinkedList()
@@ -34,4 +37,8 @@ for number in numbers:
 
 print(
     root.head.next.next.next.next
+)
+
+print(
+    len(root)
 )

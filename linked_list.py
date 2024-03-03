@@ -22,6 +22,9 @@ class LinkedList:
 
     def increment_size(self):
         self._size += 1
+
+    def decrement_size(self):
+        self._size += 1
     
     def append(self, number):
         node = Node(number)
@@ -77,14 +80,14 @@ class LinkedList:
             pointer = self._getnode(index-1)
             node.next = pointer.next
             pointer.next = node
-        self._size = self._size + 1
+        self.increment_size()
 
     def remove(self, elem):
         if self.head == None:
             raise ValueError(f"{elem} is not in list")
         elif self.head.data == elem:
             self.head = self.head.next
-            self._size = self._size - 1
+            self.decrement_size()
             return True
         else:
             ancestor = self.head
@@ -93,11 +96,11 @@ class LinkedList:
                 if pointer.data == elem:
                     ancestor.next = pointer.next
                     pointer.next = None
-                    self._size = self._size - 1
+                    self.decrement_size()
                     return True
                 ancestor = pointer
                 pointer = pointer.next
-        raise ValueError("{} is not in list".format(elem))
+        raise ValueError(f"{elem} is not in list")
 
 numbers = [1, 30, 90, 50, 99]
 root = LinkedList()

@@ -30,32 +30,28 @@ class LinkedList:
     def __len__(self):
         return self._size
     
-    def __getitem__(self, key):
+    def _getnode(self, index):
         pointer = self.head
-        for i in range(key):
+        for i in range(index):
             if pointer:
                 pointer = pointer.next
             else:
-                raise IndexError("List index out of range")
-        
+                raise IndexError("list index out of range")
+        return pointer
+    
+    def __getitem__(self, index):
+        pointer = self._getnode(index)
         if not pointer:
-            raise IndexError("List index out of range")    
-         
+            raise IndexError("list index out of range")  
         return pointer.data
     
-    def __setitem__(self, key, element):
-        pointer = self.head
-        for i in range(key):
-            if pointer:
-                pointer = pointer.next
-            else:
-                raise IndexError("List index out of range")
-        
+    def __setitem__(self, index, elem):
+        pointer = self._getnode(index)
         if not pointer:
-            raise IndexError("List index out of range")
+            raise IndexError("list index out of range")
 
-        pointer.data = element
-    
+        pointer.data = elem
+
     def index(self, element):
         pointer = self.head
         for i in range(self._size):
@@ -63,6 +59,37 @@ class LinkedList:
                 return i
             pointer = pointer.next
         raise IndexError(f"{element} is not in list")
+
+    def insert(self, index, elem):
+        node = Node(elem)
+        if index == 0:
+            node.next = self.head
+            self.head = node
+        else:
+            pointer = self._getnode(index-1)
+            node.next = pointer.next
+            pointer.next = node
+        self._size = self._size + 1
+
+    def remove(self, elem):
+        if self.head == None:
+            raise ValueError("{} is not in list".format(elem))
+        elif self.head.data == elem:
+            self.head = self.head.next
+            self._size = self._size - 1
+            return True
+        else:
+            ancestor = self.head
+            pointer = self.head.next
+            while(pointer):
+                if pointer.data == elem:
+                    ancestor.next = pointer.next
+                    pointer.next = None
+                    self._size = self._size - 1
+                    return True
+                ancestor = pointer
+                pointer = pointer.next
+        raise ValueError("{} is not in list".format(elem))
 
 numbers = [1, 30, 90, 50, 99]
 root = LinkedList()

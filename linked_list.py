@@ -11,7 +11,15 @@ class LinkedList:
         self.head = None
         self.last_node = None
         self._size = 0
-    
+
+    def __repr__(self):
+        r = ""
+        pointer = self.head
+        while(pointer):
+            r = r + str(pointer.data) + "->"
+            pointer = pointer.next
+        return r    
+
     def increment_size(self):
         self._size += 1
     
@@ -73,7 +81,7 @@ class LinkedList:
 
     def remove(self, elem):
         if self.head == None:
-            raise ValueError("{} is not in list".format(elem))
+            raise ValueError(f"{elem} is not in list")
         elif self.head.data == elem:
             self.head = self.head.next
             self._size = self._size - 1
@@ -100,6 +108,3 @@ print(
     root.head.next.next.next.next
 )
 
-print(
-    root.index(1)
-)
